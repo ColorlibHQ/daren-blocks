@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-**Daren 1.0.0** is a Colorlib **WordPress block theme** (full site editing) for a
+**Daren 1.0.1** is a Colorlib **WordPress block theme** (full site editing) for a
 personal journal about art, design and colour, rebuilt from the Daren HTML
 template (`preview.colorlib.com/theme/daren/`, Bootstrap 4). Text domain and
 slug `daren`. 26 patterns, 14 templates, 3 parts, 8 colour palettes x 5 type

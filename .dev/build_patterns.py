@@ -513,7 +513,7 @@ def build_contact():
     details = group("\n".join([
         contact_detail("home", "Bairro Alto, Lisbon", "Studio 4, Rua da Rosa 142, 1200-389 Lisboa"),
         contact_detail("device-mobile", "+351 912 480 316", "Monday to Friday, 10:00 to 18:00"),
-        contact_detail("mail", "hello@darenjournal.com", "Commissions, questions and good walls to look at."),
+        contact_detail("mail", "hello@yourdomain.com", "Commissions, questions and good walls to look at."),
     ]), layout="constrained", gap="40", extra_class="daren-contact-details")
     inner = columns([column(form, width="67.5%"), column(details, width="32.5%")], gap="40",
                     extra_class="daren-with-sidebar")

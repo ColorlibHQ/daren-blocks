@@ -57,7 +57,7 @@ defined( 'ABSPATH' ) || exit;
 
 <!-- wp:group {"className":"daren-contact-info daren-icon\u002d\u002dmail","style":{"spacing":{"blockGap":"0px"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group daren-contact-info daren-icon--mail"><!-- wp:heading {"level":3,"className":"daren-contact-info__title","fontSize":"medium"} -->
-<h3 class="wp-block-heading daren-contact-info__title has-medium-font-size">hello@darenjournal.com</h3>
+<h3 class="wp-block-heading daren-contact-info__title has-medium-font-size">hello@yourdomain.com</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->

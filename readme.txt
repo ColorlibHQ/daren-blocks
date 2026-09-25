@@ -4,7 +4,7 @@ Contributors: colorlib
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: blog, news, portfolio, full-site-editing, block-patterns, block-styles, template-editing, wide-blocks, accessibility-ready, translation-ready, custom-colors, custom-menu, custom-logo, featured-images, threaded-comments, one-column, two-columns, right-sidebar, rtl-language-support, sticky-post, theme-options
@@ -142,6 +142,9 @@ Unsplash License, https://unsplash.com/license
 Pexels License, https://www.pexels.com/license/
 
 == Changelog ==
+
+= 1.0.1 =
+* The sample email address in the patterns is now hello@yourdomain.com. The 1.0.0 address used a domain that belongs, or could belong, to someone else.
 
 = 1.0.0 =
 * Initial release.
