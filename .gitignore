@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+*.map
+.sass-cache/
+.dev/editor/
+.dev/publish/raw/
+# Local only: side-by-side renders (third-party template photos) and the build report.
+.dev/compare/
+.dev/REPORT.md

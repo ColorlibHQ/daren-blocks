@@ -1,0 +1,300 @@
+/*
+ * Forms.
+ *
+ * Three jobs: style Daren's own contact form and newsletter sign-up, style
+ * WordPress's comment form to match them, and pull the common form plugins
+ * onto the same tokens so a form block does not look like a different website
+ * dropped into the page.
+ *
+ * The template's controls: a hairline border, 5px corners (12px on a message
+ * box), 48px tall, 13px text with placeholders instead of labels. The labels
+ * are still there for screen readers; see inc/contact.php.
+ *
+ * Everything here is expressed in palette variables, so a form follows
+ * whichever of the eight colour variations a site has active.
+ */
+
+/* ---------------------------------------------------------------------------
+   Shared controls
+   ---------------------------------------------------------------------------
+   One selector list covers Daren's fields, the comment form and every
+   plugin's, so there is one place to change how an input looks.
+*/
+
+.daren-contact .daren-field__control,
+.wp-block-post-comments-form input[type="text"],
+.wp-block-post-comments-form input[type="email"],
+.wp-block-post-comments-form input[type="url"],
+.wp-block-post-comments-form textarea,
+.wpcf7 input[type="text"],
+.wpcf7 input[type="email"],
+.wpcf7 input[type="tel"],
+.wpcf7 input[type="number"],
+.wpcf7 textarea,
+.wpcf7 select,
+.wpforms-field input[type="text"],
+.wpforms-field input[type="email"],
+.wpforms-field input[type="tel"],
+.wpforms-field textarea,
+.wpforms-field select,
+.gform_wrapper input[type="text"],
+.gform_wrapper input[type="email"],
+.gform_wrapper input[type="tel"],
+.gform_wrapper textarea,
+.gform_wrapper select,
+.fluentform input[type="text"],
+.fluentform input[type="email"],
+.fluentform textarea,
+.fluentform select,
+.forminator-input,
+.forminator-textarea,
+.nf-form-content input[type="text"],
+.nf-form-content input[type="email"],
+.nf-form-content textarea {
+	display: block;
+	width: 100%;
+	/* Form controls inherit no border-box reset from WordPress or the theme, so
+	   `width: 100%` plus padding and a border would push past the grid cell. */
+	box-sizing: border-box;
+	min-height: 48px;
+	padding: 0.7rem 18px;
+	font-family: inherit;
+	font-size: var(--wp--preset--font-size--small);
+	line-height: 1.6;
+	color: var(--wp--preset--color--contrast);
+	background-color: transparent;
+	border: 1px solid var(--wp--preset--color--divider);
+	border-radius: 5px;
+	box-shadow: none;
+	transition: border-color 0.2s ease;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.daren-contact textarea.daren-field__control,
+.wp-block-post-comments-form textarea {
+	min-height: 12rem;
+	padding-top: 18px;
+	border-radius: 12px;
+	resize: vertical;
+}
+
+/* Placeholders stand in for labels, so they have to be readable: the
+   template's #999 is 2.85:1. */
+.daren-field__control::placeholder,
+.wp-block-post-comments-form input::placeholder,
+.wp-block-post-comments-form textarea::placeholder {
+	color: var(--wp--preset--color--muted);
+	opacity: 1;
+}
+
+.daren-contact .daren-field__control:focus,
+.wp-block-post-comments-form input:focus,
+.wp-block-post-comments-form textarea:focus,
+.wpcf7 input:focus,
+.wpcf7 textarea:focus,
+.wpforms-field input:focus,
+.wpforms-field textarea:focus,
+.gform_wrapper input:focus,
+.gform_wrapper textarea:focus,
+.fluentform input:focus,
+.fluentform textarea:focus,
+.forminator-input:focus,
+.forminator-textarea:focus {
+	border-color: var(--wp--preset--color--primary);
+	outline: 3px solid color-mix(in srgb, var(--wp--preset--color--primary) 22%, transparent);
+	outline-offset: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Daren's forms
+   --------------------------------------------------------------------------- */
+
+.daren-contact {
+	margin: 0;
+}
+
+/*
+ * The anchor the POST redirect comes back to. In the flow but invisible, and
+ * lifted clear of the sticky header so the result is not hidden under it.
+ */
+.daren-form__anchor {
+	position: relative;
+	top: -120px;
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+.daren-form__actions {
+	margin: 30px 0 0;
+}
+
+.daren-form__actions .wp-element-button {
+	cursor: pointer;
+	border: 0;
+}
+
+/* The honeypot. Off-screen rather than display:none, because some bots skip
+   anything that is display:none and fill everything else. */
+.daren-form__trap {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.daren-notice {
+	margin: 0 0 1.4rem;
+	padding: 0.95rem 1.2rem;
+	border-left: 3px solid currentColor;
+	font-size: var(--wp--preset--font-size--small);
+	line-height: 1.6;
+	background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.daren-notice.is-ok {
+	/* The words carry the message; green marks it. A green as TEXT fails AA in
+	   most of the sixteen palette × scheme combinations, so the text is
+	   `contrast` and the green is the 3px edge, where 3:1 is enough. */
+	color: var(--wp--preset--color--contrast);
+	border-left-color: var(--wp--preset--color--success);
+}
+
+.daren-notice.is-error {
+	color: var(--wp--preset--color--primary);
+}
+
+/* In the footer the notice sits on `dark`. */
+.daren-subscribe .daren-notice {
+	margin: 0 0 12px;
+	color: var(--wp--preset--color--overlay);
+}
+
+.daren-subscribe .daren-notice.is-error {
+	border-left-color: var(--wp--preset--color--primary-lifted);
+}
+
+.daren-newsletter .daren-subscribe .daren-notice {
+	color: var(--wp--preset--color--contrast);
+}
+
+/* ---------------------------------------------------------------------------
+   The comment form: message across the width, name and email side by side,
+   website beneath, then the red submit with its chevron.
+   --------------------------------------------------------------------------- */
+
+.wp-block-post-comments-form .comment-form {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0 30px;
+}
+
+.wp-block-post-comments-form .comment-form > * {
+	grid-column: 1 / -1;
+	margin: 0 0 30px;
+}
+
+.wp-block-post-comments-form .comment-form-author,
+.wp-block-post-comments-form .comment-form-email {
+	grid-column: auto;
+}
+
+.wp-block-post-comments-form .comment-notes,
+.wp-block-post-comments-form .logged-in-as {
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.wp-block-post-comments-form label {
+	display: block;
+	margin-bottom: 0.4rem;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-post-comments-form .comment-form-cookies-consent {
+	display: flex;
+	gap: 0.6rem;
+	align-items: flex-start;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.wp-block-post-comments-form .comment-form-cookies-consent label {
+	margin: 0;
+	font-weight: 400;
+	color: var(--wp--preset--color--muted);
+}
+
+.wp-block-post-comments-form .form-submit {
+	margin-bottom: 0;
+}
+
+.wp-block-post-comments-form input[type="submit"] {
+	cursor: pointer;
+	border: 0;
+	padding: 14.5px 22px;
+	text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+	.wp-block-post-comments-form .comment-form {
+		grid-template-columns: 1fr;
+	}
+
+	.wp-block-post-comments-form .comment-form > * {
+		margin-bottom: 16px;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   Plugin submit buttons, mapped onto the element button so a form's submit
+   matches every other button on the site.
+   --------------------------------------------------------------------------- */
+
+.wpcf7 input[type="submit"],
+.wpforms-submit,
+.gform_button,
+.fluentform .ff-btn-submit,
+.forminator-button-submit,
+.nf-form-content .submit-wrap input {
+	font-family: var(--wp--preset--font-family--open-sans);
+	font-size: 0.875rem;
+	font-weight: 400;
+	line-height: 1.5;
+	padding: 14.5px 22px;
+	color: var(--wp--preset--color--on-primary);
+	background-color: var(--wp--preset--color--primary);
+	border: 0;
+	border-radius: 0;
+	cursor: pointer;
+	transition: background-color 0.4s ease-in-out;
+	width: auto;
+}
+
+.wpcf7 input[type="submit"]:hover,
+.wpforms-submit:hover,
+.gform_button:hover,
+.fluentform .ff-btn-submit:hover,
+.forminator-button-submit:hover,
+.nf-form-content .submit-wrap input:hover {
+	background-color: var(--wp--preset--color--primary-deep);
+	color: var(--wp--preset--color--on-primary);
+}
+
+.wpcf7-not-valid-tip,
+.wpforms-error,
+.gfield_validation_message,
+.fluentform .error {
+	color: var(--wp--preset--color--primary);
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.wpcf7 .wpcf7-response-output {
+	margin: 1.4rem 0 0;
+	padding: 0.95rem 1.2rem;
+	border: 0;
+	border-left: 3px solid currentColor;
+	font-size: var(--wp--preset--font-size--small);
+}

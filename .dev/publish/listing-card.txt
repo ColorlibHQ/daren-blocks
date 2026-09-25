@@ -1,0 +1,11 @@
+Daren — themes listing (page 5091)
+
+Picker line ("what are you building"):
+A personal blog or art and design journal
+
+Card blurb:
+A magazine-style journal theme whose home page fills itself from your posts, with a contact form and a newsletter sign-up built in, eight colour palettes and dark mode.
+
+Card image: daren-free-blog-wordpress-theme.jpg (1200x800)
+Card kind: Block theme
+Page: https://colorlib.com/wp/themes/daren/

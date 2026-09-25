@@ -1,0 +1,132 @@
+/*
+ * Dark mode.
+ *
+ * This LIFTS the active palette rather than replacing it. A Daren site set to
+ * Jade stays green in dark mode; only the grounds and the text turn over. That
+ * is what lets one file serve all eight palettes — and it is why the rules
+ * redefine the preset variables themselves rather than restyling components:
+ * everything in the theme, patterns and post content alike, already reads from
+ * those variables.
+ *
+ * `--wp--preset--color--overlay` is deliberately NOT touched. It is near-white
+ * in every palette because it sits on photographs and on the `dark` footer,
+ * both of which stay dark here.
+ *
+ * .dev/build_theme.py reads the values below to audit them, so change them here
+ * and re-run it; it refuses a slug the palette does not define.
+ */
+
+.daren-dark {
+	color-scheme: dark;
+
+	--wp--preset--color--base: #141517;
+	--wp--preset--color--surface: #221b1c;
+	--wp--preset--color--subtle: #1e2023;
+	--wp--preset--color--contrast: #f2f1ef;
+	--wp--preset--color--muted: #aaa7a2;
+	--wp--preset--color--divider: #33363b;
+	--wp--preset--color--rule: #3a2629;
+
+	/* `dark` is the footer's ground. On a dark page it has to go deeper than
+	   the page, or the footer stops being a separate thing. */
+	--wp--preset--color--dark: #0c0d0e;
+}
+
+/*
+ * The brand colour has to hold its own against a dark ground.
+ *
+ * Each palette's `primary` is chosen to clear AA against its light page, and
+ * against #141517 most of them do not. Every palette names its own dark-mode
+ * brand colour, `primary-lifted`, rather than this file mixing one: no single
+ * share of white keeps Scarlet red and still lifts Ink's near-black above 3:1.
+ *
+ * Hover turns light, the way it turns charcoal on a light page, and the label
+ * `on-primary` turns dark with it. `on-primary` only ever appears paired with
+ * a primary fill, so redefining it here reaches nothing else.
+ */
+.daren-dark {
+	--wp--preset--color--primary: var(--wp--preset--color--primary-lifted);
+	--wp--preset--color--primary-deep: #f2f1ef;
+	--wp--preset--color--on-primary: #141517;
+}
+
+/* While the switch is flipping, nothing transitions: links fade their colour
+   over 0.3s, and without this every title and menu item would sit dark on the
+   new dark page for that long. */
+.daren-scheme-switching *,
+.daren-scheme-switching *::before,
+.daren-scheme-switching *::after {
+	transition: none !important;
+}
+
+/* Photographs are a touch bright against a dark page. */
+@media (prefers-reduced-motion: no-preference) {
+	.daren-dark img:not([src$=".svg"]) {
+		filter: brightness(0.94);
+		transition: filter 0.2s ease;
+	}
+}
+
+/*
+ * The toggle itself: a core/button with a class, so it can be dropped anywhere
+ * in the editor. It sits among the header's icons, so it is an icon too.
+ */
+.wp-block-button.daren-scheme-toggle > .wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	min-width: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background-color: transparent;
+	color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-button.daren-scheme-toggle > .wp-block-button__link:hover,
+.wp-block-button.daren-scheme-toggle > .wp-block-button__link:focus-visible {
+	background-color: var(--wp--preset--color--subtle);
+	color: var(--wp--preset--color--primary);
+}
+
+.wp-block-button.daren-scheme-toggle > .wp-block-button__link::before {
+	content: "";
+	width: 15px;
+	height: 15px;
+	flex: 0 0 auto;
+	background-color: currentColor;
+	/* A moon, and a sun in dark mode. Masked, so it takes the button's colour. */
+	-webkit-mask: var(--daren-scheme-icon) center / contain no-repeat;
+	mask: var(--daren-scheme-icon) center / contain no-repeat;
+	--daren-scheme-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z'/%3E%3C/svg%3E");
+}
+
+.daren-dark .wp-block-button.daren-scheme-toggle > .wp-block-button__link::before {
+	--daren-scheme-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1' stroke='black' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/*
+ * Form controls do not inherit the page's colours, so they have to be told.
+ * Without this every form stays a block of white in a dark page.
+ */
+.daren-dark .daren-field__control,
+.daren-dark .wp-block-search__input,
+.daren-dark .wp-block-post-comments-form input:not([type="submit"]):not([type="checkbox"]),
+.daren-dark .wp-block-post-comments-form textarea {
+	background-color: var(--wp--preset--color--base);
+	border-color: var(--wp--preset--color--divider);
+	color: var(--wp--preset--color--contrast);
+}
+
+/* The footer's newsletter field sits on `dark`, which stays dark. */
+.daren-dark .daren-subscribe .daren-field__control {
+	background-color: transparent;
+}
+
+/* The white tabs and cards laid over photographs are page-coloured panels. */
+.daren-dark .daren-tab a,
+.daren-dark .daren-banner__card {
+	background-color: var(--wp--preset--color--base);
+}

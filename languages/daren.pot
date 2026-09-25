@@ -1,0 +1,231 @@
+# Copyright (C) 2026 Colorlib
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Daren 1.0.0\n"
+"Report-Msgid-Bugs-To: https://colorlib.com/wp/themes/daren/\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-24T19:26:05+00:00\n"
+"X-Domain: daren\n"
+
+#: functions.php:67
+msgid "Flagged title"
+msgstr ""
+
+#: functions.php:70
+msgid "Thick band"
+msgstr ""
+
+#: functions.php:73
+msgid "Panel"
+msgstr ""
+
+#: functions.php:76
+msgid "With arrow"
+msgstr ""
+
+#: functions.php:77
+msgid "Outline"
+msgstr ""
+
+#: functions.php:80
+msgid "Ring bullets"
+msgstr ""
+
+#: functions.php:121
+msgid "Link copied"
+msgstr ""
+
+#: functions.php:135
+msgid "Daren: story layouts"
+msgstr ""
+
+#: functions.php:136
+msgid "Sections that list your posts: the banner, the checkerboard, cards and lists."
+msgstr ""
+
+#: functions.php:139
+msgid "Daren: sections"
+msgstr ""
+
+#: functions.php:140
+msgid "Full-width sections for building pages."
+msgstr ""
+
+#: functions.php:143
+msgid "Daren: pages"
+msgstr ""
+
+#: functions.php:144
+msgid "Complete page layouts."
+msgstr ""
+
+#. translators: %s: post title.
+#: inc/blocks.php:131
+#, php-format
+msgid " on %s"
+msgstr ""
+
+#. translators: %s: number of minutes.
+#: inc/blocks.php:147
+#, php-format
+msgid "%s min read"
+msgstr ""
+
+#. translators: %s: post title.
+#: inc/blocks.php:157 inc/blocks.php:170
+#, php-format
+msgid ": %s"
+msgstr ""
+
+#: inc/blocks.php:168
+msgid "Share"
+msgstr ""
+
+#. translators: %s: number of comments.
+#: inc/blocks.php:126
+#, php-format
+msgid "%s Comment"
+msgid_plural "%s Comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/contact.php:43
+msgid "Message"
+msgstr ""
+
+#: inc/contact.php:44
+msgid "Enter message"
+msgstr ""
+
+#: inc/contact.php:49
+msgid "Your name"
+msgstr ""
+
+#: inc/contact.php:50
+msgid "Enter your name"
+msgstr ""
+
+#: inc/contact.php:56 inc/newsletter.php:68
+msgid "Email address"
+msgstr ""
+
+#: inc/contact.php:57 inc/newsletter.php:37
+msgid "Enter email address"
+msgstr ""
+
+#: inc/contact.php:63
+msgid "Subject"
+msgstr ""
+
+#: inc/contact.php:64
+msgid "Enter subject"
+msgstr ""
+
+#: inc/contact.php:129
+msgid "(required)"
+msgstr ""
+
+#: inc/contact.php:196
+msgid "Send Message"
+msgstr ""
+
+#: inc/contact.php:209
+msgid "Thank you — your message is on its way. I read every one and reply to most within a few days."
+msgstr ""
+
+#: inc/contact.php:210
+msgid "Please check the form: a message, your name and your email address are all needed."
+msgstr ""
+
+#: inc/contact.php:211 inc/newsletter.php:53
+msgid "That email address does not look right."
+msgstr ""
+
+#: inc/contact.php:212
+msgid "Sorry, the message could not be sent. Please try again later, or write to the address beside the form."
+msgstr ""
+
+#: inc/contact.php:213
+msgid "That form had been open a while and expired. Please send it again."
+msgstr ""
+
+#: inc/contact.php:227 inc/newsletter.php:63
+msgid "Leave this field empty"
+msgstr ""
+
+#. translators: 1: site name, 2: the subject the visitor wrote.
+#: inc/contact.php:365
+#, php-format
+msgid "[%1$s] %2$s"
+msgstr ""
+
+#. translators: %s: site name.
+#: inc/contact.php:368
+#, php-format
+msgid "[%s] A message from the contact form"
+msgstr ""
+
+#: inc/front-page-setup.php:35
+msgid "Home"
+msgstr ""
+
+#: inc/front-page-setup.php:40
+msgid "About"
+msgstr ""
+
+#: inc/front-page-setup.php:45
+msgid "Contact"
+msgstr ""
+
+#: inc/front-page-setup.php:50
+msgid "Journal"
+msgstr ""
+
+#: inc/front-page-setup.php:271
+msgid "Primary"
+msgstr ""
+
+#: inc/newsletter.php:38
+msgid "Subscribe"
+msgstr ""
+
+#: inc/newsletter.php:52
+msgid "Thank you — you are on the list."
+msgstr ""
+
+#: inc/newsletter.php:54
+msgid "Sorry, that did not go through. Please try again later."
+msgstr ""
+
+#: inc/newsletter.php:55
+msgid "The form had expired. Please try again."
+msgstr ""
+
+#. translators: %s: site name.
+#: inc/newsletter.php:123
+#, php-format
+msgid "[%s] New newsletter sign-up"
+msgstr ""
+
+#. translators: %s: email address.
+#: inc/newsletter.php:125
+#, php-format
+msgid "%s asked to join the newsletter from the sign-up form on the site."
+msgstr ""
+
+#: inc/scheme.php:96 inc/scheme.php:137
+msgid "Switch to dark mode"
+msgstr ""
+
+#: inc/scheme.php:97
+msgid "Switch to light mode"
+msgstr ""
+
+#. translators: 1: the update host, 2: the list of values sent, 3: filter name.
+#: inc/updates.php:193
+#, php-format
+msgid "Daren checks %1$s for updates twice a day and sends %2$s. No personal data and no site name is sent, and the identifier is a one-way hash. Add the %3$s filter to switch it off."
+msgstr ""

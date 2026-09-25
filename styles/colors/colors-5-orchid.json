@@ -1,0 +1,91 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Orchid",
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"name": "Base",
+					"slug": "base",
+					"color": "#ffffff"
+				},
+				{
+					"name": "Surface",
+					"slug": "surface",
+					"color": "#fbeff8"
+				},
+				{
+					"name": "Subtle",
+					"slug": "subtle",
+					"color": "#f4f2f4"
+				},
+				{
+					"name": "Contrast",
+					"slug": "contrast",
+					"color": "#2b1f29"
+				},
+				{
+					"name": "Muted",
+					"slug": "muted",
+					"color": "#65596a"
+				},
+				{
+					"name": "Primary",
+					"slug": "primary",
+					"color": "#9c2378"
+				},
+				{
+					"name": "Primary deep",
+					"slug": "primary-deep",
+					"color": "#2b1f29"
+				},
+				{
+					"name": "Primary on dark",
+					"slug": "primary-lifted",
+					"color": "#f08ad0"
+				},
+				{
+					"name": "Accent",
+					"slug": "accent",
+					"color": "#d0399f"
+				},
+				{
+					"name": "Rule",
+					"slug": "rule",
+					"color": "#f6d9ee"
+				},
+				{
+					"name": "Divider",
+					"slug": "divider",
+					"color": "#ece4ea"
+				},
+				{
+					"name": "Success",
+					"slug": "success",
+					"color": "#1f7a45"
+				},
+				{
+					"name": "Dark",
+					"slug": "dark",
+					"color": "#1a1119"
+				},
+				{
+					"name": "On dark",
+					"slug": "on-dark",
+					"color": "#a697a4"
+				},
+				{
+					"name": "Overlay",
+					"slug": "overlay",
+					"color": "#ffffff"
+				},
+				{
+					"name": "On primary",
+					"slug": "on-primary",
+					"color": "#ffffff"
+				}
+			]
+		}
+	}
+}

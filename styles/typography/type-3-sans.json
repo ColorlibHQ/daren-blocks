@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Open Sans throughout",
+	"styles": {
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--open-sans)"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--open-sans)"
+				}
+			},
+			"button": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--open-sans)"
+				}
+			}
+		},
+		"blocks": {
+			"core/site-title": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--open-sans)"
+				}
+			},
+			"core/navigation": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--open-sans)"
+				}
+			},
+			"core/categories": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--open-sans)"
+				}
+			},
+			"core/pullquote": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--open-sans)"
+				}
+			}
+		}
+	}
+}

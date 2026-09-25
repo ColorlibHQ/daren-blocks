@@ -1,0 +1,10 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "preferredVersions": { "php": "8.3", "wp": "latest" },
+  "steps": [
+    { "step": "setSiteOptions", "options": { "blogname": "DarEn.", "blogdescription": "A journal of colour, craft and visual culture" } },
+    { "step": "installPlugin", "pluginData": { "resource": "wordpress.org/plugins", "slug": "theme-check" } },
+    { "step": "activateTheme", "themeFolderName": "daren" },
+    { "step": "login", "username": "admin", "password": "password" }
+  ]
+}

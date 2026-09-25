@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "System fonts",
+	"styles": {
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--system)"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--system-serif)"
+				}
+			},
+			"button": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--system)"
+				}
+			}
+		},
+		"blocks": {
+			"core/site-title": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--system-serif)"
+				}
+			},
+			"core/navigation": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--system-serif)"
+				}
+			},
+			"core/categories": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--system-serif)"
+				}
+			},
+			"core/pullquote": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--system-serif)"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,2126 @@
+/*
+Theme Name: Daren
+Theme URI: https://colorlib.com/wp/themes/daren/
+Author: Colorlib
+Author URI: https://colorlib.com/
+Description: A magazine-style block theme for a personal journal about art, design and colour. An asymmetric opening banner, a checkerboard of featured stories, category cards, a list with a sidebar, and a contact form and newsletter sign-up that need no plugin — eight colour palettes, five type pairings, visitor dark mode and WooCommerce support. Full site editing throughout.
+Requires at least: 6.6
+Tested up to: 7.1
+Requires PHP: 7.4
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Update URI: https://updates.colorlib.com/theme/daren.json
+Text Domain: daren
+Tags: blog, news, portfolio, full-site-editing, block-patterns, block-styles, template-editing, wide-blocks, accessibility-ready, translation-ready, custom-colors, custom-menu, custom-logo, featured-images, threaded-comments, one-column, two-columns, right-sidebar, rtl-language-support, sticky-post, theme-options
+
+Daren WordPress Theme, (C) 2026 Colorlib.
+Daren is distributed under the terms of the GNU GPL v2 or later.
+
+Daren bundles the following third-party resources:
+
+Open Sans and Source Serif Pro
+License: SIL Open Font License 1.1, https://openfontlicense.org/
+Source: https://fontsource.org/
+
+Tabler Icons
+License: MIT, https://github.com/tabler/tabler-icons/blob/main/LICENSE
+Source: https://tabler.io/icons
+
+Photographs (per-file credits in readme.txt)
+License: Unsplash License, https://unsplash.com/license (three)
+License: Pexels License, https://www.pexels.com/license/ (two)
+*/
+
+/*
+ * A block theme styles itself from theme.json. What lives here is what
+ * theme.json cannot express: the story cards and the way they are laid out,
+ * the component styles behind the block style variations registered in
+ * functions.php, the icons, and the sticky header.
+ *
+ * This file is also the editor stylesheet (add_editor_style), so a card, a tab
+ * or an icon looks the same while it is being edited.
+ *
+ * Every colour is a palette variable, which is what lets all eight palettes
+ * and dark mode restyle every component. Measurements are the HTML template's,
+ * in its own pixels, where the design depends on them.
+ */
+
+/* ==========================================================================
+   Screen reader text
+   ========================================================================== */
+
+.screen-reader-text {
+	border: 0;
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+	background-color: var(--wp--preset--color--base);
+	clip-path: none;
+	color: var(--wp--preset--color--contrast);
+	display: block;
+	height: auto;
+	left: 6px;
+	padding: 15px 23px 14px;
+	top: 7px;
+	width: auto;
+	z-index: 100000;
+}
+
+/* ==========================================================================
+   Layout rhythm
+
+   WordPress separates header, main, footer and every full-width section with
+   the root block gap: a strip of bare page between bands that are meant to
+   meet. Sections carry their own padding, so they meet edge to edge.
+   ========================================================================== */
+
+.wp-site-blocks > * {
+	margin-block-start: 0;
+}
+
+main.wp-block-group > * + *,
+.wp-block-post-content > .alignfull + .alignfull {
+	margin-block-start: 0;
+}
+
+/*
+ * A page built from sections needs no padding of its own — each section has
+ * it. A page of ordinary paragraphs still needs room to breathe, so the page
+ * templates pad their content only where it does not start or end with a
+ * full-width section.
+ */
+.daren-page-content:not(:has(> .alignfull:first-child)) {
+	padding-top: var(--wp--preset--spacing--70);
+}
+
+.daren-page-content:not(:has(> .alignfull:last-child)) {
+	padding-bottom: var(--wp--preset--spacing--70);
+}
+
+/* Links carry the template's half-second colour change. */
+a {
+	transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ==========================================================================
+   Header
+
+   White, above the content rather than over it, and sticky: the template's
+   script fixes it to the top once the page scrolls past 50px and gives it a
+   shadow. Sticky positioning does the fixing without taking it out of the
+   flow; assets/js/interactions.js adds the shadow.
+   ========================================================================== */
+
+.daren-site-header {
+	position: sticky;
+	top: var(--wp-admin--admin-bar--height, 0px);
+	z-index: 50;
+	background-color: var(--wp--preset--color--base);
+	transition: box-shadow 0.3s ease;
+}
+
+.daren-site-header.is-stuck {
+	box-shadow: var(--wp--preset--shadow--sticky);
+}
+
+/* The admin bar stops being fixed on phones, so the header must not wait
+   beneath the space it used to take. */
+@media (max-width: 600px) {
+	.daren-site-header {
+		top: 0;
+	}
+}
+
+.daren-header {
+	padding-top: 1.75rem;
+	padding-bottom: 1.75rem;
+}
+
+.daren-header__row {
+	min-height: 2.5rem;
+}
+
+.daren-header__brand .wp-block-site-logo img {
+	height: auto;
+	max-height: 2.5rem;
+	width: auto;
+}
+
+/* A site with a logo does not print its name beside it as well. */
+.daren-header__brand .wp-block-site-logo ~ .wp-block-site-title {
+	display: none;
+}
+
+.wp-block-site-title a {
+	text-decoration: none;
+}
+
+/* The red capital of a camel-case title, as in the template's "DarEn."
+   `primary`, not the template's own red: it is text, and `accent` is only
+   held to decorative contrast — Tangerine's is 2.34:1 on white. */
+.daren-title-accent {
+	color: var(--wp--preset--color--primary);
+}
+
+/* The navigation: small serif capitals, centred between the wordmark and the
+   icons, turning red on hover and for the page you are on. */
+.daren-nav .wp-block-navigation__container {
+	gap: 0;
+}
+
+.daren-nav .wp-block-navigation-item__content {
+	padding: 7px 20px;
+	letter-spacing: 0.01em;
+}
+
+.daren-nav a.wp-block-navigation-item__content:hover,
+.daren-nav .current-menu-item > a.wp-block-navigation-item__content {
+	color: var(--wp--preset--color--primary);
+}
+
+.daren-nav .wp-block-navigation__submenu-container {
+	border: 0 !important;
+	background-color: var(--wp--preset--color--subtle) !important;
+	padding: 0.5rem 0;
+}
+
+.daren-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	font-size: 0.875rem;
+	padding: 8px 20px;
+	text-transform: none;
+}
+
+/* The icons: search, a thin divider, the social links and the scheme switch. */
+.daren-header__tools {
+	position: relative;
+	z-index: 2;
+}
+
+.daren-header__search {
+	position: relative;
+	padding-right: 1.25rem;
+	margin-right: 0.25rem;
+}
+
+.daren-header__search::after {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 1px;
+	height: 16px;
+	margin-top: -8px;
+	background-color: currentColor;
+	color: var(--wp--preset--color--muted);
+	opacity: 0.6;
+}
+
+.daren-header__search .wp-block-search__button {
+	margin: 0;
+	padding: 0;
+	width: 2rem;
+	height: 2rem;
+	border: 0;
+	background: transparent;
+	color: var(--wp--preset--color--contrast);
+}
+
+.daren-header__search .wp-block-search__button svg {
+	width: 18px;
+	height: 18px;
+	min-width: 18px;
+	fill: currentColor;
+}
+
+.daren-header__search .wp-block-search__button:hover,
+.daren-header__search .wp-block-search__button:focus-visible {
+	color: var(--wp--preset--color--primary);
+	background: transparent;
+}
+
+/*
+ * When the button opens the field, the field floats over the navigation to
+ * the left rather than pushing it along — the template's search slides out
+ * over the header the same way.
+ */
+.daren-header__search .wp-block-search__inside-wrapper {
+	position: relative;
+	border: 0;
+	padding: 0;
+}
+
+.daren-header__search .wp-block-search__input {
+	position: absolute;
+	right: 2.25rem;
+	top: 50%;
+	transform: translateY(-50%);
+	width: min(300px, 60vw);
+	height: 40px;
+	padding: 0 1rem;
+	border: 2px solid var(--wp--preset--color--rule);
+	border-radius: 10px 0 0 10px;
+	background-color: var(--wp--preset--color--subtle);
+	color: var(--wp--preset--color--contrast);
+	font-size: 0.875rem;
+	z-index: 3;
+	transition: width 0.4s cubic-bezier(0, 0.795, 0, 1), opacity 0.2s ease;
+}
+
+.daren-header__search .wp-block-search__input:focus {
+	outline: 2px solid var(--wp--preset--color--primary);
+	outline-offset: 0;
+}
+
+.daren-header__search.wp-block-search__searchfield-hidden .wp-block-search__input {
+	width: 0;
+	padding: 0;
+	border-width: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.daren-header__social {
+	gap: 4px;
+}
+
+.daren-header__social .wp-social-link a {
+	padding: 0.4rem;
+}
+
+.daren-header__social .wp-social-link svg {
+	width: 14px;
+	height: 14px;
+}
+
+.daren-header__social .wp-social-link:hover {
+	transform: none;
+}
+
+.daren-header__social .wp-social-link a:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+/*
+ * Core switches the navigation to its menu button below 600px. The template
+ * collapses its menu at 992px, and between the two a wordmark, five links and
+ * the icons have nowhere to go but a second row.
+ */
+@media (max-width: 991px) {
+	.daren-nav .wp-block-navigation__responsive-container-open:not(.always-shown) {
+		display: flex;
+	}
+
+	.daren-nav .wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) {
+		display: none;
+	}
+
+	.daren-header__row > .daren-nav {
+		order: 3;
+	}
+
+	.daren-header__tools {
+		margin-left: auto;
+	}
+
+	.daren-header__social {
+		display: none !important;
+	}
+
+	.daren-header__search::after {
+		display: none;
+	}
+
+	.daren-header__search {
+		padding-right: 0;
+		margin-right: 0;
+	}
+
+	.daren-header {
+		padding-top: 1.25rem;
+		padding-bottom: 1.25rem;
+	}
+}
+
+/* The opened mobile menu: the same serif capitals, larger and stacked. */
+.daren-nav .wp-block-navigation__responsive-container.is-menu-open {
+	padding: 2rem 1.5rem;
+}
+
+.daren-nav .is-menu-open .wp-block-navigation-item__content {
+	padding: 0.6rem 0;
+	font-size: var(--wp--preset--font-size--large);
+}
+
+/* ==========================================================================
+   Story parts: labels, tabs, bylines, the action row
+   ========================================================================== */
+
+/* The category in red capitals above a title. Only the first category shows:
+   a label reads as one word, and a post may carry several. */
+.daren-label,
+.daren-tab {
+	font-family: var(--wp--preset--font-family--open-sans);
+	font-size: var(--wp--preset--font-size--x-small);
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	line-height: 1.4;
+	text-transform: uppercase;
+}
+
+.daren-label a,
+.daren-tab a {
+	color: var(--wp--preset--color--primary);
+	text-decoration: none;
+}
+
+.daren-label a:hover,
+.daren-tab a:hover {
+	color: var(--wp--preset--color--contrast);
+}
+
+.daren-label a ~ a,
+.daren-tab a ~ a,
+.daren-label .wp-block-post-terms__separator,
+.daren-tab .wp-block-post-terms__separator {
+	display: none;
+}
+
+/* The tab: white, on the bottom-left corner of the photograph, with one
+   rounded corner. */
+.daren-card__media,
+.daren-row__media {
+	position: relative;
+}
+
+.daren-tab {
+	position: absolute;
+	left: 0;
+	bottom: -5px;
+	margin: 0;
+	z-index: 1;
+}
+
+.daren-tab a {
+	display: inline-block;
+	padding: 15px 30px;
+	background-color: var(--wp--preset--color--base);
+	border-top-right-radius: 10px;
+}
+
+/* The byline: "By Daren Ellis / 18 September 2026". */
+.daren-byline {
+	row-gap: 0 !important;
+	font-size: var(--wp--preset--font-size--small);
+	line-height: 1.6;
+}
+
+.daren-byline .wp-block-post-author {
+	display: inline-flex;
+	margin: 0;
+}
+
+.daren-byline .wp-block-post-author__content {
+	display: flex;
+	flex: 0 0 auto;
+	gap: 0.3em;
+}
+
+.daren-byline .wp-block-post-author__byline,
+.daren-byline .wp-block-post-author__name {
+	flex: none;
+	width: auto;
+	margin: 0;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 800;
+	color: var(--wp--preset--color--contrast);
+}
+
+.daren-byline .wp-block-post-author__name a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.daren-byline .wp-block-post-date {
+	margin: 0;
+	color: var(--wp--preset--color--muted);
+	font-weight: 600;
+}
+
+.daren-byline .daren-byline__date::before {
+	content: "/";
+	margin-right: 0.35em;
+	margin-left: -0.3em;
+	font-weight: 400;
+}
+
+.daren-byline .wp-block-post-date a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* The row of comments, reading time and share, under a hairline. */
+.daren-actions {
+	margin-top: 20px !important;
+	padding-top: 20px;
+	border-top: 1px solid var(--wp--preset--color--divider);
+	row-gap: 0.5rem !important;
+}
+
+.daren-action,
+.daren-actions .wp-block-read-more,
+.daren-post-meta .wp-block-read-more,
+.daren-post-footer .wp-block-read-more {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.55em;
+	margin: 0;
+	padding: 0;
+	font-size: var(--wp--preset--font-size--small);
+	line-height: 1.5;
+	color: var(--wp--preset--color--muted);
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.daren-action:hover,
+.daren-actions .wp-block-read-more:hover,
+.daren-post-meta .wp-block-read-more:hover,
+.daren-post-footer .wp-block-read-more:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+.daren-action--comments::before,
+.daren-action--time::before,
+.daren-action--share::before {
+	content: "";
+	flex: none;
+	width: 15px;
+	height: 15px;
+	background-color: currentColor;
+	-webkit-mask: var(--daren-icon) center / contain no-repeat;
+	mask: var(--daren-icon) center / contain no-repeat;
+}
+
+.daren-action--comments { --daren-icon: url("assets/icons/message-circle.svg"); }
+.daren-action--time { --daren-icon: url("assets/icons/clock.svg"); }
+.daren-action--share { --daren-icon: url("assets/icons/share.svg"); }
+
+.daren-copied {
+	position: fixed;
+	left: 50%;
+	bottom: 2rem;
+	z-index: 100;
+	transform: translateX(-50%);
+	padding: 0.6rem 1.2rem;
+	background-color: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	font-size: var(--wp--preset--font-size--small);
+}
+
+/* Post titles in every card: the template's serif at 600, tight, turning red. */
+.daren-banner .wp-block-post-title {
+	margin: 0;
+	line-height: 1.2;
+	font-weight: 600;
+}
+
+.daren-checker .wp-block-post-title,
+.daren-cards .wp-block-post-title,
+.daren-list .wp-block-post-title,
+.daren-minis .wp-block-post-title {
+	margin: 0;
+	line-height: 1.333;
+	font-weight: 600;
+}
+
+.daren-banner .wp-block-post-title a,
+.daren-checker .wp-block-post-title a,
+.daren-cards .wp-block-post-title a,
+.daren-list .wp-block-post-title a,
+.daren-minis .wp-block-post-title a {
+	text-decoration: none;
+}
+
+/* Photographs fill their slot, whatever shape the upload is. */
+.daren-banner .wp-block-post-featured-image,
+.daren-checker .wp-block-post-featured-image,
+.daren-cards .wp-block-post-featured-image,
+.daren-list .wp-block-post-featured-image,
+.daren-minis .wp-block-post-featured-image {
+	margin: 0;
+}
+
+.daren-checker .wp-block-post-featured-image img,
+.daren-cards .wp-block-post-featured-image img,
+.daren-list .wp-block-post-featured-image img,
+.daren-minis .wp-block-post-featured-image img {
+	width: 100%;
+	display: block;
+}
+
+/* A story with no photograph keeps its shape: a tinted panel where the
+   picture would be, rather than a card that collapses. */
+.daren-checker__item:not(:has(.wp-block-post-featured-image)) .daren-checker__body,
+.daren-card:not(:has(.wp-block-post-featured-image)) .daren-card__media,
+.daren-row:not(:has(.wp-block-post-featured-image)) .daren-row__media {
+	background-color: var(--wp--preset--color--subtle);
+}
+
+.daren-card:not(:has(.wp-block-post-featured-image)) .daren-card__media {
+	aspect-ratio: 360 / 336;
+}
+
+.daren-row:not(:has(.wp-block-post-featured-image)) .daren-row__media {
+	aspect-ratio: 350 / 340;
+}
+
+/*
+ * A young site. With three posts the checkerboard and the cards have nothing
+ * to show, and an empty section still carries its padding and its rule. On the
+ * front end only — in the editor an empty query must stay visible to be edited.
+ */
+/* (An empty query renders an empty <div>, hence :empty. :has() cannot nest,
+   and one invalid selector voids the whole list — so no :has(:has()).) */
+body:not(.editor-styles-wrapper) .daren-checker-section:has(> .daren-checker:empty),
+body:not(.editor-styles-wrapper) .daren-cards-section:has(> .daren-cards:empty),
+body:not(.editor-styles-wrapper) .daren-rule:has(+ .daren-cards-section > .daren-cards:empty),
+body:not(.editor-styles-wrapper) .is-style-daren-flag:has(+ .daren-minis:empty),
+body:not(.editor-styles-wrapper) .daren-minis:empty {
+	display: none;
+}
+
+/* ==========================================================================
+   Stories: the opening banner
+
+   Two stories, full width: a portrait at 36% and a landscape at 63.5%, 810px
+   tall, a hair of white between. The first carries a centred white card 160px
+   above its foot; the second's card hangs off its bottom-right corner, 96px
+   below the photograph.
+   ========================================================================== */
+
+.daren-banner {
+	--daren-banner-height: clamp(400px, 56.25vw, 810px);
+	padding-bottom: 96px;
+}
+
+.daren-banner .wp-block-post-template {
+	display: grid;
+	grid-template-columns: 36fr 63.5fr;
+	gap: 0.5%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.daren-banner .wp-block-post {
+	margin: 0;
+	min-width: 0;
+}
+
+/* One story on its own takes the whole width. */
+.daren-banner .wp-block-post:only-child {
+	grid-column: 1 / -1;
+}
+
+.daren-banner__item {
+	position: relative;
+	height: var(--daren-banner-height);
+	background-color: var(--wp--preset--color--surface);
+}
+
+.daren-banner__image,
+.daren-banner__image a {
+	height: 100%;
+	margin: 0;
+}
+
+.daren-banner__image img {
+	width: 100%;
+	height: 100% !important;
+	object-fit: cover;
+	display: block;
+}
+
+.daren-banner__card {
+	position: absolute;
+	z-index: 1;
+	background-color: var(--wp--preset--color--base);
+}
+
+.daren-banner__card > * {
+	margin-block: 0;
+}
+
+.daren-banner__card .daren-label {
+	margin-bottom: 12px;
+	font-weight: 700;
+}
+
+.daren-banner__card .daren-byline {
+	margin-top: 15px;
+}
+
+.daren-banner .wp-block-post:first-child:not(:only-child) .daren-banner__card {
+	left: 0;
+	right: 0;
+	bottom: 160px;
+	max-width: 490px;
+	margin: 0 auto;
+	padding: 45px;
+	text-align: center;
+}
+
+.daren-banner .wp-block-post:first-child:not(:only-child) .daren-byline {
+	justify-content: center;
+}
+
+.daren-banner .wp-block-post:nth-child(2) .daren-banner__card,
+.daren-banner .wp-block-post:only-child .daren-banner__card {
+	left: 23%;
+	right: 0;
+	bottom: -96px;
+	padding: 45px 144px 50px 50px;
+}
+
+@media (max-width: 1200px) {
+	.daren-banner {
+		--daren-banner-height: 600px;
+	}
+
+	.daren-banner .wp-block-post:nth-child(2) .daren-banner__card {
+		left: 10%;
+		padding-right: 60px;
+	}
+
+	.daren-banner .wp-block-post-title {
+		font-size: 25px !important;
+	}
+}
+
+/* Tablet: two equal halves, 400px tall, cards inside the photographs. */
+@media (max-width: 991px) {
+	.daren-banner {
+		--daren-banner-height: 400px;
+		padding-bottom: 0;
+	}
+
+	.daren-banner .wp-block-post-template {
+		grid-template-columns: 1fr 1fr;
+		gap: 0;
+	}
+
+	.daren-banner .wp-block-post:first-child:not(:only-child) .daren-banner__card {
+		bottom: 120px;
+		max-width: 350px;
+		padding: 20px;
+	}
+
+	.daren-banner .wp-block-post:nth-child(2) .daren-banner__card,
+	.daren-banner .wp-block-post:only-child .daren-banner__card {
+		left: 0;
+		bottom: 0;
+		padding: 20px;
+	}
+
+	.daren-banner .wp-block-post-title {
+		font-size: 22px !important;
+	}
+}
+
+/* Below a tablet the template's titles go back up to their full size. */
+@media (max-width: 767px) {
+	.daren-banner .wp-block-post-title {
+		font-size: var(--wp--preset--font-size--heading) !important;
+	}
+}
+
+/* Phone: one above the other, each card beneath its photograph. */
+@media (max-width: 600px) {
+	.daren-banner .wp-block-post-template {
+		grid-template-columns: 1fr;
+		row-gap: 20px;
+	}
+
+	.daren-banner__item {
+		height: auto;
+		background-color: transparent;
+	}
+
+	.daren-banner__image {
+		height: 190px;
+	}
+
+	.daren-banner .wp-block-post .daren-banner__card,
+	.daren-banner .wp-block-post:first-child:not(:only-child) .daren-banner__card,
+	.daren-banner .wp-block-post:nth-child(2) .daren-banner__card {
+		position: static;
+		max-width: none;
+		padding: 20px var(--wp--preset--spacing--30);
+	}
+
+	.daren-banner .wp-block-post:first-child:not(:only-child) .daren-banner__image {
+		height: 190px;
+	}
+
+	.daren-banner .wp-block-post:nth-child(2) .daren-banner__card {
+		text-align: left;
+	}
+}
+
+/* ==========================================================================
+   Stories: the checkerboard
+
+   Three columns with no gutter. The outer two are photograph-then-words, the
+   middle one words-then-photograph, so the row reads as a checkerboard.
+   ========================================================================== */
+
+.daren-checker-section {
+	padding-top: 44px;
+	padding-bottom: var(--wp--preset--spacing--70);
+}
+
+.daren-checker .wp-block-post-template {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.daren-checker .wp-block-post {
+	margin: 0;
+}
+
+.daren-checker__item {
+	display: flex;
+	flex-direction: column;
+}
+
+.daren-checker__item > * {
+	margin: 0 !important;
+}
+
+.daren-checker .wp-block-post:nth-child(2) .daren-checker__item {
+	flex-direction: column-reverse;
+}
+
+.daren-checker__body {
+	margin: 59px 0 51px !important;
+	padding: 0 30px;
+}
+
+.daren-checker .wp-block-post:first-child .daren-checker__body {
+	padding: 0 30px 0 0;
+}
+
+.daren-checker__body > * {
+	margin-block: 0;
+}
+
+.daren-checker__body .daren-label {
+	margin-bottom: 14px;
+}
+
+.daren-checker__body .daren-byline {
+	margin-top: 15px;
+}
+
+@media (max-width: 1200px) {
+	.daren-checker__body {
+		margin: 20px 0 !important;
+	}
+}
+
+@media (max-width: 991px) {
+	.daren-checker .wp-block-post-template {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		column-gap: 6%;
+	}
+
+	.daren-checker .wp-block-post:nth-child(2) .daren-checker__item {
+		flex-direction: column;
+	}
+
+	.daren-checker .wp-block-post:nth-child(2) .daren-checker__body {
+		padding: 0 30px 0 0;
+	}
+
+	.daren-checker .wp-block-post:nth-child(3) {
+		display: none;
+	}
+
+	.daren-checker .wp-block-post-title {
+		font-size: 18px !important;
+	}
+}
+
+@media (max-width: 600px) {
+	.daren-checker .wp-block-post-template {
+		grid-template-columns: 1fr;
+	}
+
+	.daren-checker .wp-block-post:nth-child(3) {
+		display: block;
+	}
+
+	.daren-checker .wp-block-post-title {
+		font-size: var(--wp--preset--font-size--xx-large) !important;
+	}
+
+	.daren-checker__body,
+	.daren-checker .wp-block-post:nth-child(2) .daren-checker__body {
+		padding: 0;
+	}
+
+	.daren-checker .wp-block-post:nth-child(2) .daren-checker__item {
+		flex-direction: column-reverse;
+	}
+}
+
+/* ==========================================================================
+   The thick rule between home page sections (block style: Thick band)
+   ========================================================================== */
+
+.wp-block-separator.is-style-daren-band:not(.is-style-wide):not(.is-style-dots) {
+	width: 100%;
+	height: 0;
+	margin: 0 auto;
+	border: 0;
+	border-top: 5px solid var(--wp--preset--color--rule);
+	background: none;
+	opacity: 1;
+}
+
+.daren-rule > .wp-block-separator {
+	margin-block: 0;
+}
+
+/* ==========================================================================
+   Stories: cards
+   ========================================================================== */
+
+.daren-cards-section:not([style*="padding"]) {
+	padding-top: var(--wp--preset--spacing--70);
+	padding-bottom: 45px;
+}
+
+.daren-cards .wp-block-post-template {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 0 30px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.daren-cards--two .wp-block-post-template {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.daren-cards .wp-block-post {
+	margin: 0;
+	min-width: 0;
+}
+
+.daren-card > * {
+	margin-block: 0;
+}
+
+.daren-card__body {
+	margin: 21px 0 55px !important;
+	padding-right: 30px;
+}
+
+.daren-card__body > * {
+	margin-block: 0;
+}
+
+.daren-card__body .daren-byline {
+	margin: 15px 0 10px;
+}
+
+.daren-cards--two .daren-card__body {
+	margin: 35px 0 !important;
+}
+
+@media (max-width: 991px) {
+	.daren-cards .wp-block-post-template {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.daren-cards-section .daren-cards .wp-block-post:nth-child(3):last-child {
+		display: none;
+	}
+
+	.daren-card__body {
+		margin: 20px 0 !important;
+		padding-right: 0;
+	}
+}
+
+@media (max-width: 600px) {
+	.daren-cards .wp-block-post-template,
+	.daren-cards--two .wp-block-post-template {
+		grid-template-columns: 1fr;
+	}
+
+	.daren-cards-section .daren-cards .wp-block-post:nth-child(3):last-child {
+		display: block;
+	}
+}
+
+/* ==========================================================================
+   Stories: the list
+
+   A 350px photograph with its category turned on its side down the right
+   edge, then the words in a box outlined on three sides, centred against it.
+   It stacks by the width of the column, not the window, so it also works in
+   a narrow column of the user's own.
+   ========================================================================== */
+
+.daren-list {
+	container-type: inline-size;
+}
+
+.daren-list .wp-block-post-template {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.daren-list .wp-block-post {
+	margin: 0 0 60px;
+}
+
+.daren-row {
+	display: flex;
+	align-items: center;
+}
+
+.daren-row > * {
+	margin: 0 !important;
+}
+
+/* 350px, as drawn, until the column is too narrow to leave the words room. */
+.daren-row__media {
+	flex: 0 0 min(350px, 48%);
+	max-width: 350px;
+}
+
+.daren-row__media .daren-tab {
+	left: auto;
+	right: 0;
+	top: 54px;
+	bottom: auto;
+	writing-mode: vertical-rl;
+	transform: rotate(180deg);
+}
+
+.daren-row__media .daren-tab a {
+	padding: 30px 15px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 10px;
+}
+
+.daren-row__body {
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: 35px 15px 40px 40px;
+	border: 1px solid var(--wp--preset--color--divider);
+	border-left: 0;
+}
+
+.daren-row__body > * {
+	margin-block: 0;
+}
+
+.daren-row__body .daren-byline {
+	margin-bottom: 15px;
+}
+
+@container (max-width: 600px) {
+	.daren-row {
+		display: block;
+	}
+
+	.daren-row__media {
+		max-width: none;
+	}
+
+	.daren-row__media .daren-tab {
+		left: 0;
+		right: auto;
+		top: auto;
+		bottom: -5px;
+		writing-mode: horizontal-tb;
+		transform: none;
+	}
+
+	.daren-row__media .daren-tab a {
+		padding: 15px 30px;
+		border-radius: 0 10px 0 0;
+	}
+
+	.daren-row__body {
+		padding: 15px;
+		border-left: 1px solid var(--wp--preset--color--divider);
+		border-top: 0;
+	}
+}
+
+@media (max-width: 991px) {
+	.daren-list .wp-block-post {
+		margin-bottom: 20px;
+	}
+}
+
+/* The "More stories" button: the next page of the list, as the template's
+   red LOADING MORE. */
+.daren-more {
+	margin-top: 80px !important;
+}
+
+.daren-more .wp-block-query-pagination-next {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	padding: 14.5px 22px;
+	background-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--on-primary);
+	font-size: 0.875rem;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.daren-more .wp-block-query-pagination-next:hover,
+.daren-more .wp-block-query-pagination-next:focus-visible {
+	background-color: var(--wp--preset--color--primary-deep);
+	color: var(--wp--preset--color--on-primary);
+}
+
+.daren-more .wp-block-query-pagination-next::after {
+	content: "";
+	flex: none;
+	width: 12px;
+	height: 12px;
+	background-color: currentColor;
+	-webkit-mask: url("assets/icons/chevron-right.svg") center / contain no-repeat;
+	mask: url("assets/icons/chevron-right.svg") center / contain no-repeat;
+}
+
+@media (max-width: 767px) {
+	.daren-more {
+		margin-top: 30px !important;
+	}
+
+	.daren-more .wp-block-query-pagination-next {
+		padding: 10px 17px;
+	}
+}
+
+/* Numbered pagination: square numbers, the current one filled. */
+.daren-pagination {
+	margin-top: var(--wp--preset--spacing--50) !important;
+	gap: 6px;
+}
+
+.daren-pagination .page-numbers,
+.daren-pagination .wp-block-query-pagination-previous,
+.daren-pagination .wp-block-query-pagination-next {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 44px;
+	height: 44px;
+	margin: 0;
+	padding: 0 14px;
+	border: 1px solid var(--wp--preset--color--divider);
+	color: var(--wp--preset--color--contrast);
+	font-size: var(--wp--preset--font-size--small);
+	text-decoration: none;
+}
+
+.daren-pagination .page-numbers.current {
+	border-color: var(--wp--preset--color--primary);
+	background-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--on-primary);
+}
+
+.daren-pagination a.page-numbers:hover,
+.daren-pagination .wp-block-query-pagination-previous:hover,
+.daren-pagination .wp-block-query-pagination-next:hover {
+	border-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--primary);
+}
+
+.daren-pagination .page-numbers.dots {
+	border-color: transparent;
+}
+
+/* ==========================================================================
+   Content with a sidebar
+
+   730px beside 350px at the template's widths. Core only stacks columns below
+   782px; the template stacks at 992, which is where the list and the sidebar
+   stop fitting side by side.
+   ========================================================================== */
+
+@media (max-width: 991px) {
+	.wp-block-columns.daren-with-sidebar {
+		flex-wrap: wrap !important;
+	}
+
+	.wp-block-columns.daren-with-sidebar > .wp-block-column {
+		flex-basis: 100% !important;
+	}
+
+	.wp-block-columns.daren-with-sidebar > .wp-block-column + .wp-block-column {
+		margin-top: 50px;
+	}
+}
+
+.daren-sidebar > * {
+	margin-block: 0;
+}
+
+/* A widget title with the template's flag: a short thick red bar, then a
+   longer hairline, both under the words. */
+.wp-block-heading.is-style-daren-flag {
+	position: relative;
+	margin-bottom: 45px;
+	font-weight: 600;
+}
+
+.wp-block-heading.is-style-daren-flag::before,
+.wp-block-heading.is-style-daren-flag::after {
+	content: "";
+	position: absolute;
+	bottom: -13px;
+	background-color: var(--wp--preset--color--accent);
+}
+
+.wp-block-heading.is-style-daren-flag::before {
+	left: 0;
+	width: 15px;
+	height: 4px;
+}
+
+.wp-block-heading.is-style-daren-flag::after {
+	left: 25px;
+	width: 40px;
+	height: 1px;
+	bottom: -12px;
+}
+
+.wp-block-heading.is-style-daren-flag.has-text-align-center::before {
+	left: calc(50% - 32.5px);
+}
+
+.wp-block-heading.is-style-daren-flag.has-text-align-center::after {
+	left: calc(50% - 7.5px);
+}
+
+.daren-sidebar .is-style-daren-flag {
+	margin-top: 0;
+}
+
+.daren-sidebar > * + .is-style-daren-flag {
+	margin-top: 55px;
+}
+
+@media (max-width: 991px) {
+	.wp-block-heading.is-style-daren-flag {
+		margin-bottom: 35px;
+	}
+}
+
+/* Search: a tall field and a square red button beside it. */
+.daren-sidebar__search .wp-block-search__inside-wrapper {
+	gap: 10px;
+	padding: 0;
+	border: 0;
+}
+
+.daren-sidebar__search .wp-block-search__input {
+	height: 52px;
+	padding: 0 12px;
+	border: 1px solid var(--wp--preset--color--divider);
+	border-radius: 0;
+	font-size: var(--wp--preset--font-size--small);
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+}
+
+.daren-sidebar__search .wp-block-search__input:focus {
+	border-color: var(--wp--preset--color--primary);
+	outline: 0;
+}
+
+.daren-sidebar__search .wp-block-search__button {
+	width: 50px;
+	height: 52px;
+	margin: 0;
+	padding: 0;
+	justify-content: center;
+	border-radius: 0;
+}
+
+.daren-sidebar__search .wp-block-search__button svg {
+	width: 20px;
+	height: 20px;
+	fill: currentColor;
+}
+
+/* The sidebar's stories: letterbox photograph, byline, title, a hairline. */
+.daren-minis .wp-block-post-template {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.daren-minis .wp-block-post {
+	margin: 0 0 30px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid var(--wp--preset--color--divider);
+}
+
+.daren-minis .wp-block-post:last-child {
+	margin-bottom: 0;
+	border-bottom: 0;
+	padding-bottom: 0;
+}
+
+.daren-mini > * {
+	margin-block: 0;
+}
+
+.daren-mini .daren-byline {
+	margin: 30px 0 12px;
+}
+
+/* Categories: serif, generous, with the count beside each. */
+.daren-categories {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	color: var(--wp--preset--color--muted);
+}
+
+.daren-categories li {
+	margin: 0 0 12px;
+}
+
+.daren-categories a {
+	color: var(--wp--preset--color--muted);
+	text-decoration: none;
+}
+
+.daren-categories a:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+/* Tags: grey chips in serif capitals. */
+.daren-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 6px;
+}
+
+.daren-tags a {
+	display: inline-block;
+	margin: 0;
+	padding: 9.5px 28px;
+	border: 1px solid transparent;
+	background-color: var(--wp--preset--color--subtle);
+	color: var(--wp--preset--color--contrast);
+	font-family: var(--wp--preset--font-family--source-serif);
+	font-size: 13px !important;
+	font-weight: 600;
+	line-height: 1.5;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.daren-tags a:hover {
+	border-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--contrast);
+}
+
+/* ==========================================================================
+   The page title band
+   ========================================================================== */
+
+.daren-page-banner {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 150px;
+	padding-top: var(--wp--preset--spacing--30);
+	padding-bottom: var(--wp--preset--spacing--30);
+}
+
+.daren-page-banner > * {
+	margin-block: 0 !important;
+}
+
+.daren-page-banner .wp-block-post-title,
+.daren-page-banner .wp-block-query-title,
+.daren-page-banner .wp-block-heading {
+	color: var(--wp--preset--color--contrast);
+	font-weight: 600;
+}
+
+/* A post's band carries its category, set like a page title. */
+.daren-banner-terms {
+	font-family: var(--wp--preset--font-family--source-serif);
+	font-size: var(--wp--preset--font-size--title);
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.daren-banner-terms a {
+	color: var(--wp--preset--color--contrast);
+	text-decoration: none;
+}
+
+.daren-banner-terms a:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+/* ==========================================================================
+   A single post
+   ========================================================================== */
+
+.daren-single > * {
+	margin-block: 0;
+}
+
+.daren-single__image img {
+	width: 100%;
+	display: block;
+}
+
+.daren-single__title {
+	margin-top: 26px !important;
+	line-height: 1.333;
+}
+
+.daren-post-meta {
+	margin-top: 1rem !important;
+	margin-bottom: 1.5rem !important;
+}
+
+.daren-single__content {
+	font-size: var(--wp--preset--font-size--medium);
+}
+
+.daren-single__content > * {
+	margin-block: 0 20px;
+}
+
+.daren-single__content p a,
+.daren-single__content li a,
+.daren-page-content p:not([class*="wp-block-"]) a {
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+}
+
+.daren-single__content h2 {
+	margin-top: 2.5rem;
+	font-size: var(--wp--preset--font-size--xx-large);
+}
+
+.daren-single__content h3 {
+	margin-top: 2rem;
+	font-size: var(--wp--preset--font-size--x-large);
+}
+
+/* Lists carry the red of the brand in their markers. */
+.daren-single__content ul li::marker,
+.daren-page-content ul li::marker {
+	color: var(--wp--preset--color--accent);
+}
+
+/* The quotation: a white card with a rule down its left side, set in a tinted
+   panel. The panel is the block's padding and background together. */
+.wp-block-quote {
+	margin: 25px 0;
+	padding: 30px;
+	border: 0;
+	background-color: var(--wp--preset--color--subtle);
+	color: var(--wp--preset--color--muted);
+}
+
+.wp-block-quote > p,
+.wp-block-quote > .wp-block-paragraph {
+	margin: 0;
+	padding: 25px 25px 25px 30px;
+	border-left: 2px solid var(--wp--preset--color--muted);
+	background-color: var(--wp--preset--color--base);
+}
+
+.wp-block-quote > p + p {
+	padding-top: 0;
+}
+
+.wp-block-quote cite {
+	display: block;
+	margin-top: 1rem;
+	font-size: var(--wp--preset--font-size--small);
+	font-style: normal;
+	font-weight: 600;
+	color: var(--wp--preset--color--contrast);
+}
+
+@media (max-width: 767px) {
+	.wp-block-quote {
+		padding: 15px;
+	}
+
+	.wp-block-quote > p {
+		padding: 15px 15px 15px 20px;
+	}
+}
+
+/* Tags and share, under a hairline. */
+.daren-post-footer {
+	margin-top: 30px !important;
+	padding-top: 15px;
+	border-top: 1px solid var(--wp--preset--color--divider);
+}
+
+.daren-post-tags {
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.daren-post-tags a {
+	color: var(--wp--preset--color--muted);
+	text-decoration: none;
+}
+
+.daren-post-tags a:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+/* Previous and next. */
+.daren-post-nav {
+	margin-top: 55px !important;
+	padding-bottom: 30px;
+	border-bottom: 1px solid var(--wp--preset--color--divider);
+}
+
+.daren-post-nav__link {
+	flex: 1 1 0;
+	font-family: var(--wp--preset--font-family--source-serif);
+	font-size: var(--wp--preset--font-size--large);
+	line-height: 1.4;
+}
+
+.daren-post-nav__link.post-navigation-link-next {
+	text-align: right;
+}
+
+.daren-post-nav__link a {
+	color: var(--wp--preset--color--contrast);
+	text-decoration: none;
+}
+
+.daren-post-nav__link a:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+.daren-post-nav__link .post-navigation-link__label {
+	display: block;
+	margin-bottom: 2px;
+	font-family: var(--wp--preset--font-family--open-sans);
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--muted);
+}
+
+/* The author: a tinted panel, the portrait round beside the name and bio. */
+.is-style-daren-panel {
+	padding: 40px 30px;
+	background-color: var(--wp--preset--color--subtle);
+}
+
+.daren-author-box {
+	margin-top: 50px !important;
+}
+
+.daren-author-box .wp-block-post-author {
+	align-items: center;
+	gap: 30px;
+}
+
+.daren-author-box .wp-block-post-author__avatar {
+	margin: 0;
+}
+
+.daren-author-box .wp-block-post-author__avatar img {
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+}
+
+.daren-author-box .wp-block-post-author__name {
+	margin: 0 0 4px;
+	font-family: var(--wp--preset--font-family--source-serif);
+	font-size: var(--wp--preset--font-size--large);
+	color: var(--wp--preset--color--contrast);
+}
+
+.daren-author-box .wp-block-post-author__name a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.daren-author-box .wp-block-post-author__bio {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--medium);
+}
+
+@media (max-width: 600px) {
+	.is-style-daren-panel {
+		padding: 20px 15px;
+	}
+
+	.daren-author-box .wp-block-post-author {
+		gap: 15px;
+	}
+
+	.daren-author-box .wp-block-post-author__avatar img {
+		width: 48px;
+		height: 48px;
+	}
+}
+
+/* Comments. */
+.daren-comments {
+	margin-top: 50px !important;
+	padding-top: 45px;
+	border-top: 1px solid var(--wp--preset--color--divider);
+}
+
+.daren-comments .wp-block-comments-title {
+	margin: 0 0 35px;
+}
+
+.daren-comments .wp-block-comment-template {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.daren-comments .wp-block-comment-template li {
+	margin: 0 0 48px;
+}
+
+.daren-comments .wp-block-comment-template ol {
+	margin-top: 32px;
+	padding-left: 40px;
+	list-style: none;
+}
+
+.daren-comment .wp-block-avatar {
+	flex: none;
+	margin: 0;
+}
+
+.daren-comment__body {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.daren-comment__body > * {
+	margin-block: 0;
+}
+
+.daren-comment .wp-block-comment-content p {
+	margin: 0 0 10px;
+	font-size: var(--wp--preset--font-size--medium);
+}
+
+.daren-comment__meta {
+	row-gap: 0 !important;
+}
+
+.daren-comment__meta > * {
+	margin: 0;
+}
+
+.daren-comment .wp-block-comment-author-name {
+	font-family: var(--wp--preset--font-family--source-serif);
+	font-weight: 600;
+	color: var(--wp--preset--color--contrast);
+}
+
+.daren-comment .wp-block-comment-author-name a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.daren-comment .wp-block-comment-date,
+.daren-comment .wp-block-comment-date a {
+	color: var(--wp--preset--color--muted);
+	text-decoration: none;
+}
+
+.daren-comment .wp-block-comment-reply-link {
+	margin-left: auto;
+}
+
+.daren-comment .wp-block-comment-reply-link a {
+	color: var(--wp--preset--color--muted);
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.daren-comment .wp-block-comment-reply-link a:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+.daren-comments .comment-respond {
+	margin-top: 50px;
+	padding-top: 45px;
+	border-top: 1px solid var(--wp--preset--color--divider);
+}
+
+.daren-comments .comment-reply-title {
+	margin: 0 0 40px;
+	font-size: var(--wp--preset--font-size--large);
+	font-weight: 600;
+}
+
+@media (max-width: 600px) {
+	.daren-comment .wp-block-avatar img {
+		width: 44px;
+		height: 44px;
+	}
+}
+
+/* ==========================================================================
+   Forms: the contact form, the comment form and the newsletter
+   ========================================================================== */
+
+.daren-contact__grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 30px;
+}
+
+.daren-contact__grid .daren-field {
+	margin: 0;
+}
+
+.daren-contact__grid .daren-field--message,
+.daren-contact__grid .daren-field--subject {
+	grid-column: 1 / -1;
+}
+
+@media (max-width: 600px) {
+	.daren-contact__grid {
+		grid-template-columns: 1fr;
+		gap: 16px;
+	}
+}
+
+/* ==========================================================================
+   The contact page
+   ========================================================================== */
+
+/* An <iframe> is inline, and auto margins do not centre an inline box: in a
+   constrained layout the map took the width cap and sat flush left. */
+.daren-map {
+	display: block;
+	filter: grayscale(0.9) contrast(0.95);
+}
+
+@media (max-width: 767px) {
+	.daren-map {
+		height: 320px !important;
+	}
+}
+
+.daren-contact-info {
+	position: relative;
+	padding-left: 47px;
+}
+
+.daren-contact-info > * {
+	margin-block: 0 !important;
+}
+
+.daren-contact-info__title {
+	font-family: var(--wp--preset--font-family--source-serif);
+	font-weight: 400;
+	color: var(--wp--preset--color--contrast);
+}
+
+.daren-contact-info p {
+	color: var(--wp--preset--color--muted);
+}
+
+.daren-contact-info[class*="daren-icon--"]::before,
+.daren-detail[class*="daren-icon--"]::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 2px;
+	width: 27px;
+	height: 27px;
+	background-color: var(--wp--preset--color--muted);
+	-webkit-mask: var(--daren-icon) center / contain no-repeat;
+	mask: var(--daren-icon) center / contain no-repeat;
+}
+
+/* ==========================================================================
+   Icons
+
+   Tabler Icons, used as masks: the SVG supplies the shape and the element's
+   colour fills it, so an icon takes whatever palette is active and turns over
+   in dark mode. Each name only sets --daren-icon, so the class can sit on the
+   block itself, where the editor draws it too.
+   ========================================================================== */
+
+.daren-icon--home { --daren-icon: url("assets/icons/home.svg"); }
+.daren-icon--headphones { --daren-icon: url("assets/icons/headphones.svg"); }
+.daren-icon--device-mobile { --daren-icon: url("assets/icons/device-mobile.svg"); }
+.daren-icon--mail { --daren-icon: url("assets/icons/mail.svg"); }
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.daren-footer {
+	padding-top: var(--wp--preset--spacing--70);
+	padding-bottom: 30px;
+}
+
+.daren-footer p {
+	line-height: 1.93;
+}
+
+.daren-footer__columns > .wp-block-column > * {
+	margin-block: 0;
+}
+
+.daren-footer__title {
+	margin-bottom: 23px !important;
+	font-weight: 700;
+}
+
+.daren-detail {
+	position: relative;
+	padding-left: 35px;
+}
+
+.daren-detail + .daren-detail {
+	margin-top: 20px !important;
+}
+
+.daren-detail > * {
+	margin-block: 0 !important;
+}
+
+.daren-detail[class*="daren-icon--"]::before {
+	top: 5px;
+	width: 18px;
+	height: 18px;
+	background-color: var(--wp--preset--color--accent);
+}
+
+.daren-footer__detail-title {
+	font-weight: 600;
+	margin-bottom: 1px !important;
+}
+
+.daren-footer a {
+	color: var(--wp--preset--color--overlay);
+	text-underline-offset: 0.2em;
+}
+
+.daren-footer a:hover {
+	color: var(--wp--preset--color--primary-lifted);
+}
+
+.daren-footer__legal {
+	margin-top: 83px !important;
+	padding-top: 30px;
+	border-top: 1px solid color-mix(in srgb, var(--wp--preset--color--on-dark) 35%, var(--wp--preset--color--dark));
+	font-size: 15px !important;
+}
+
+.daren-footer__sep {
+	margin: 0 0.35em;
+}
+
+.daren-heart {
+	color: var(--wp--preset--color--primary-lifted);
+}
+
+@media (max-width: 1024px) {
+	.daren-footer__title {
+		font-size: var(--wp--preset--font-size--large) !important;
+	}
+}
+
+@media (max-width: 991px) {
+	.daren-footer__columns {
+		flex-wrap: wrap !important;
+	}
+
+	.daren-footer__columns > .wp-block-column {
+		flex-basis: 100% !important;
+	}
+
+	.daren-footer__title {
+		margin-bottom: 15px !important;
+	}
+
+	.daren-footer__legal {
+		margin-top: 40px !important;
+	}
+}
+
+/* The newsletter row: a hairline field and the square red arrow. */
+.daren-subscribe {
+	margin-top: 23px;
+}
+
+/* The footer columns zero their children's margins; the form keeps its own. */
+.daren-footer__columns .daren-subscribe {
+	margin-top: 23px;
+}
+
+.daren-footer__columns p {
+	font-size: 0.875rem !important;
+}
+
+.daren-subscribe__row {
+	display: flex;
+}
+
+.daren-subscribe .daren-field__control {
+	flex: 1 1 auto;
+	font-family: inherit;
+	min-width: 0;
+	height: 48px;
+	padding: 0 12px;
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--on-dark) 40%, var(--wp--preset--color--dark));
+	border-radius: 0;
+	background-color: transparent;
+	color: var(--wp--preset--color--overlay);
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.daren-subscribe .daren-field__control::placeholder {
+	color: var(--wp--preset--color--on-dark);
+	opacity: 1;
+}
+
+.daren-subscribe .daren-field__control:focus {
+	border-color: var(--wp--preset--color--on-dark);
+	outline: 2px solid var(--wp--preset--color--primary-lifted);
+	outline-offset: -1px;
+}
+
+.daren-subscribe__button {
+	flex: 0 0 49px;
+	height: 48px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background-color: var(--wp--preset--color--primary-lifted);
+	color: var(--wp--preset--color--dark);
+	cursor: pointer;
+}
+
+.daren-subscribe__button::before {
+	content: "";
+	display: block;
+	width: 18px;
+	height: 18px;
+	margin: 0 auto;
+	background-color: currentColor;
+	-webkit-mask: url("assets/icons/arrow-right.svg") center / contain no-repeat;
+	mask: url("assets/icons/arrow-right.svg") center / contain no-repeat;
+}
+
+.daren-subscribe__button:hover,
+.daren-subscribe__button:focus-visible {
+	background-color: var(--wp--preset--color--overlay);
+	color: var(--wp--preset--color--dark);
+}
+
+/* The sign-up on a page's own tinted band, rather than in the footer. */
+.daren-newsletter .daren-subscribe {
+	margin-top: 0;
+}
+
+.daren-newsletter .daren-subscribe .daren-field__control {
+	border-color: var(--wp--preset--color--divider);
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+}
+
+.daren-newsletter .daren-subscribe .daren-field__control::placeholder {
+	color: var(--wp--preset--color--muted);
+}
+
+.daren-newsletter .daren-subscribe__button {
+	background-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--on-primary);
+}
+
+.daren-newsletter .daren-subscribe__button:hover,
+.daren-newsletter .daren-subscribe__button:focus-visible {
+	background-color: var(--wp--preset--color--primary-deep);
+	color: var(--wp--preset--color--on-primary);
+}
+
+/* ==========================================================================
+   The About page
+   ========================================================================== */
+
+.daren-kicker {
+	margin-bottom: -0.75rem !important;
+	color: var(--wp--preset--color--primary);
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.daren-about .wp-block-image img {
+	width: 100%;
+}
+
+.daren-signature {
+	padding-top: 10px;
+}
+
+.daren-signature .wp-block-image {
+	margin: 0;
+	flex: none;
+}
+
+.daren-signature p {
+	margin: 0;
+	line-height: 1.6;
+}
+
+.daren-signature strong {
+	font-family: var(--wp--preset--font-family--source-serif);
+	font-size: var(--wp--preset--font-size--large);
+	font-weight: 600;
+	color: var(--wp--preset--color--contrast);
+}
+
+/* ==========================================================================
+   Buttons  (block styles: core/button › With arrow, Outline)
+   ========================================================================== */
+
+.wp-block-button__link {
+	transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
+}
+
+/* The template's buttons end in a small chevron. */
+.wp-block-button.is-style-daren-arrow > .wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.wp-block-button.is-style-daren-arrow > .wp-block-button__link::after {
+	content: "";
+	flex: none;
+	width: 12px;
+	height: 12px;
+	background-color: currentColor;
+	-webkit-mask: url("assets/icons/chevron-right.svg") center / contain no-repeat;
+	mask: url("assets/icons/chevron-right.svg") center / contain no-repeat;
+}
+
+/* An outline in the brand colour, filling on hover. A real border rather than
+   a shadow, so a non-text contrast check can measure it; the padding gives the
+   border's width back so it sits the same size as a filled button. */
+.wp-block-button.is-style-daren-outline > .wp-block-button__link {
+	border: 1px solid currentColor;
+	background-color: transparent;
+	color: var(--wp--preset--color--primary);
+	padding: calc(0.8rem - 1px) calc(1.375rem - 1px);
+}
+
+.wp-block-button.is-style-daren-outline > .wp-block-button__link:hover,
+.wp-block-button.is-style-daren-outline > .wp-block-button__link:focus-visible {
+	border-color: var(--wp--preset--color--primary);
+	background-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--on-primary);
+}
+
+/* ==========================================================================
+   Ring bullets  (block style: core/list › Ring bullets)
+   ========================================================================== */
+
+.is-style-daren-rings {
+	list-style: none;
+	padding-left: 0;
+}
+
+.is-style-daren-rings > li {
+	position: relative;
+	padding-left: 28px;
+}
+
+.is-style-daren-rings > li + li {
+	margin-top: 0.4em;
+}
+
+.is-style-daren-rings > li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.55em;
+	width: 10px;
+	height: 10px;
+	border: 2px solid var(--wp--preset--color--accent);
+	border-radius: 50%;
+}
+
+/* ==========================================================================
+   Reduced motion: no transitions anywhere.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+	a,
+	.wp-block-button__link,
+	.daren-site-header,
+	.daren-header__search .wp-block-search__input {
+		transition: none;
+	}
+}
+
+/* ==========================================================================
+   Links on the dark ground
+
+   `primary` is chosen to be readable on the page, not on the footer, so the
+   footer states its own link colours.
+   ========================================================================== */
+
+.wp-block-group.has-dark-background-color a:not(.wp-element-button) {
+	color: var(--wp--preset--color--overlay);
+}
+
+.wp-block-group.has-dark-background-color a:not(.wp-element-button):hover {
+	color: var(--wp--preset--color--primary-lifted);
+}
