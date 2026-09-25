@@ -1,0 +1,169 @@
+{
+ "slug": "daren",
+ "name": "Daren",
+ "tint": "#fff6f6",
+ "accent": "#d91010",
+ "download": "https://updates.colorlib.com/download/theme/daren.zip",
+ "demo": "https://colorlibhub.com/daren-blocks/",
+ "elementor_demo": "https://colorlibhub.com/daren/",
+ "elementor_repo": "https://github.com/ColorlibHQ/daren",
+ "hero": {
+  "heading": "A journal theme where the posts lay out the page",
+  "text": "Daren is a free block theme for a personal blog or magazine about art, design and colour. Its home page is a set of story layouts — a tall photograph beside a wide one, a checkerboard, category cards and a long list — that fill themselves from what you publish. It comes with a contact form and a newsletter sign-up that need no plugin, eight colour palettes, dark mode, and full site editing throughout.",
+  "image": "daren-block-theme-home.jpg"
+ },
+ "versions": {
+  "heading": "Two versions of Daren",
+  "lede": "The same design, built two ways. Both are free.",
+  "block": {
+   "kicker": "Recommended for new sites",
+   "title": "Block theme",
+   "text": "This download. Everything is edited in WordPress’s own Site Editor, with no plugins to install: the story layouts are patterns you insert and rearrange, with eight colour palettes, five type pairings and a dark mode for your readers."
+  },
+  "elementor": {
+   "kicker": "For sites built with Elementor",
+   "title": "Elementor edition",
+   "text": "The same design built for Elementor. Its post sections and contact block are Elementor widgets built into the theme, so it needs the free Elementor plugin. The source is free on GitHub."
+  }
+ },
+ "blocks": [
+  {
+   "type": "section",
+   "heading": "Story layouts that fill themselves",
+   "text": "Every section of the home page is a query. The two newest posts open it, the next three sit in a checkerboard of photographs and words, three more carry their category on a tab, and the rest run as a list beside the sidebar. Publish a post with a featured image and it finds its place; move or remove a section in the editor like any other block.",
+   "image": "daren-block-theme-story-layouts.jpg"
+  },
+  {
+   "type": "section",
+   "heading": "Eight palettes, checked before release",
+   "text": "Scarlet, Cobalt, Jade, Tangerine, Orchid and Ink, and two dark palettes, Midnight and Graphite. Every one is measured against WCAG AA before the theme is built — text, links and button labels, in light mode and in dark — and a palette that fails is not written.",
+   "image": "daren-block-theme-colour-palettes.jpg"
+  },
+  {
+   "type": "section",
+   "heading": "Dark mode the reader controls",
+   "text": "The switch in the header is the reader’s, separate from the palette you chose. It follows their system setting until they decide for themselves, and it lifts your palette rather than replacing it.",
+   "image": "daren-block-theme-dark-mode.jpg"
+  },
+  {
+   "type": "section",
+   "heading": "A contact form and a newsletter, without a plugin",
+   "text": "The contact page’s form checks every message on the server, carries a nonce and a honeypot, and works with JavaScript turned off. Messages go to the site’s admin address; the footer’s newsletter sign-up does the same with each new address. One filter each hands them to a CRM or a mailing list instead.",
+   "image": "daren-block-theme-contact-form.jpg"
+  },
+  {
+   "type": "features",
+   "heading": "What you get"
+  },
+  {
+   "type": "section",
+   "heading": "A journal, categories and search, each laid out",
+   "text": "The journal runs two stories to a row beside the sidebar; categories and search results use the list. Tag, author and date archives, a 404 and the comments are designed rather than inherited.",
+   "image": "daren-block-theme-blog.jpg"
+  },
+  {
+   "type": "section",
+   "heading": "A single post with room to read",
+   "text": "The band above the story carries its category, the title sits under the photograph as in the original design, and the row under it gives the byline, the date, the comment count and the reading time. Quotations, lists and headings are styled for long reading, with the author and the comments below.",
+   "image": "daren-block-theme-single-post.jpg"
+  },
+  {
+   "type": "faqs",
+   "heading": "Questions"
+  }
+ ],
+ "features": [
+  {
+   "heading": "Sections that fill themselves",
+   "icon": "fa fa-th-large",
+   "text": "The opening banner, the checkerboard, the category cards and the long list are query blocks. Publish a post with a featured image and it takes its place; nothing on the home page is typed in by hand."
+  },
+  {
+   "heading": "Eight palettes, five type pairings",
+   "icon": "fa fa-paint-brush",
+   "text": "Scarlet, Cobalt, Jade, Tangerine, Orchid, Ink and two dark palettes. Every one is measured against WCAG AA before the theme is built, in light mode and in dark."
+  },
+  {
+   "heading": "Dark mode",
+   "icon": "fa fa-moon-o",
+   "text": "A switch for the reader, separate from the palette you chose. It follows their system setting until they choose, and it lifts your palette rather than replacing it."
+  },
+  {
+   "heading": "A contact form without a plugin",
+   "icon": "fa fa-envelope",
+   "text": "Checked on the server, protected by a nonce and a honeypot, and it works with JavaScript turned off. Messages go to the site’s admin address, or wherever one filter sends them."
+  },
+  {
+   "heading": "A newsletter sign-up that works",
+   "icon": "fa fa-paper-plane",
+   "text": "The footer’s sign-up checks the address and emails it to you. Hook it to Mailchimp, Sendy or MailPoet with one filter and the theme stops emailing."
+  },
+  {
+   "heading": "Your form plugin, styled",
+   "icon": "fa fa-plug",
+   "text": "Contact Form 7, WPForms, Gravity Forms, Fluent Forms, Forminator and Ninja Forms take on the theme’s colours and spacing instead of looking like another website."
+  },
+  {
+   "heading": "Comments, reading time, share",
+   "icon": "fa fa-share-alt",
+   "text": "Under every story: the comment count, an estimate of the reading time, and a Share link that opens the phone’s share sheet or copies the address."
+  },
+  {
+   "heading": "The wordmark’s red letter",
+   "icon": "fa fa-font",
+   "text": "Write the site title in camel case, like DarEn., and the capital after a lower-case letter is set in the brand colour. One filter turns it off."
+  },
+  {
+   "heading": "WooCommerce ready",
+   "icon": "fa fa-shopping-cart",
+   "text": "Prints, zines or workshop places: the shop is styled if you install WooCommerce, and the theme loads nothing for it if you do not."
+  }
+ ],
+ "faqs": [
+  {
+   "q": "Do I need a plugin?",
+   "a": "No. The contact form, the newsletter sign-up and dark mode are part of the theme. WooCommerce is styled if you add it, and is not required."
+  },
+  {
+   "q": "The home page is nearly empty. Where are the stories?",
+   "a": "The home page lists your posts: the two newest in the opening banner, the next three in the checkerboard, three more as cards and the rest in the list beside the sidebar. Publish posts with featured images and it fills itself; with sixteen or more, no story appears twice."
+  },
+  {
+   "q": "Where do contact messages go?",
+   "a": "To the site’s admin email address by default. If you use a CRM, a helpdesk or a webhook, the <code>daren_contact_handlers</code> filter hands each message to it instead, and Daren sends nothing of its own."
+  },
+  {
+   "q": "Where do newsletter sign-ups go?",
+   "a": "By default the theme emails you each new address, so nothing is lost and nothing needs installing. To add them to a mailing list instead, hook the <code>daren_newsletter_handlers</code> filter and return true once the address is on your list; the theme then stops emailing you."
+  },
+  {
+   "q": "Why is one letter of my site title red?",
+   "a": "If the site title is written in camel case — a capital straight after a lower-case letter, as in DarEn. — that capital is set in the brand colour. A title without one is left as it is. To switch it off, add <code>add_filter( 'daren_title_accent', '__return_false' );</code> to a child theme or a small plugin."
+  },
+  {
+   "q": "Which form plugins does it style?",
+   "a": "Contact Form 7, WPForms, Gravity Forms, Fluent Forms, Forminator and Ninja Forms are mapped onto the theme’s own colours and spacing, so a form block does not look like a different website."
+  },
+  {
+   "q": "Can I change the colours?",
+   "a": "Eight palettes and five type pairings ship with the theme, each a one-click choice in the Site Editor under Styles. Beyond that, every colour in the theme is a palette entry you can edit there."
+  },
+  {
+   "q": "Can I turn dark mode off?",
+   "a": "Yes. Add <code>add_filter( 'daren_enable_dark_mode', '__return_false' );</code> to a child theme or a small plugin."
+  },
+  {
+   "q": "Should I use the block theme or the Elementor edition?",
+   "a": "For a new site, the block theme: everything is edited in WordPress’s own Site Editor and no plugin is needed. The Elementor edition is the same design built for the free Elementor plugin; it remains free on GitHub for sites already built with it."
+  },
+  {
+   "q": "Is it translation ready?",
+   "a": "Yes. Every string is translatable and <code>languages/daren.pot</code> is included."
+  },
+  {
+   "q": "Does it check for updates?",
+   "a": "Yes, twice a day, because it is distributed outside the WordPress.org theme directory. It sends the theme, WordPress and PHP versions, the locale, whether the site is a multisite, and an identifier derived from the site’s address with the site’s own secret key, so it cannot be turned back into the address. The <code>daren_check_for_updates</code> filter switches it off."
+  }
+ ],
+ "details": "<table style=\"width:100%;border-collapse:collapse;\"><tr><th style=\"text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid #f0e4e4;font-weight:600;white-space:nowrap;vertical-align:top;\">Requires</th><td style=\"padding:10px 0;border-bottom:1px solid #f0e4e4;\">WordPress 6.6 or newer</td></tr><tr><th style=\"text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid #f0e4e4;font-weight:600;white-space:nowrap;vertical-align:top;\">PHP</th><td style=\"padding:10px 0;border-bottom:1px solid #f0e4e4;\">7.4 or newer</td></tr><tr><th style=\"text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid #f0e4e4;font-weight:600;white-space:nowrap;vertical-align:top;\">Tested up to</th><td style=\"padding:10px 0;border-bottom:1px solid #f0e4e4;\">WordPress 7.1</td></tr><tr><th style=\"text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid #f0e4e4;font-weight:600;white-space:nowrap;vertical-align:top;\">Licence</th><td style=\"padding:10px 0;border-bottom:1px solid #f0e4e4;\">GNU General Public License v2 or later</td></tr><tr><th style=\"text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid #f0e4e4;font-weight:600;white-space:nowrap;vertical-align:top;\">Patterns</th><td style=\"padding:10px 0;border-bottom:1px solid #f0e4e4;\">14 to insert, plus 12 the templates use</td></tr><tr><th style=\"text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid #f0e4e4;font-weight:600;white-space:nowrap;vertical-align:top;\">Templates</th><td style=\"padding:10px 0;border-bottom:1px solid #f0e4e4;\">14, plus 3 template parts</td></tr><tr><th style=\"text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid #f0e4e4;font-weight:600;white-space:nowrap;vertical-align:top;\">Styles</th><td style=\"padding:10px 0;border-bottom:1px solid #f0e4e4;\">8 colour palettes × 5 type pairings</td></tr><tr><th style=\"text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid #f0e4e4;font-weight:600;white-space:nowrap;vertical-align:top;\">Fonts</th><td style=\"padding:10px 0;border-bottom:1px solid #f0e4e4;\">Source Serif Pro and Open Sans, self-hosted</td></tr><tr><th style=\"text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid #f0e4e4;font-weight:600;white-space:nowrap;vertical-align:top;\">Icons</th><td style=\"padding:10px 0;border-bottom:1px solid #f0e4e4;\">Tabler Icons (MIT), drawn in the palette’s colours</td></tr><tr><th style=\"text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid #f0e4e4;font-weight:600;white-space:nowrap;vertical-align:top;\">Form plugins</th><td style=\"padding:10px 0;border-bottom:1px solid #f0e4e4;\">Contact Form 7, WPForms, Gravity Forms, Fluent Forms, Forminator, Ninja Forms</td></tr><tr><th style=\"text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid #f0e4e4;font-weight:600;white-space:nowrap;vertical-align:top;\">Build step</th><td style=\"padding:10px 0;border-bottom:1px solid #f0e4e4;\">None — no npm, no SCSS</td></tr></table>"
+}
