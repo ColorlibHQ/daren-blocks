@@ -13,7 +13,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'DAREN_VERSION', '1.0.1' );
+define( 'DAREN_VERSION', '1.0.2' );
 
 /**
  * Theme supports.
